@@ -1,0 +1,1361 @@
+# MASTER BUILD PROMPT
+
+## Developer Navigation Engine — V1
+
+You are the lead product engineer, UX engineer, software architect, and UI designer for this project.
+
+Your task is to BUILD the complete web application described below.
+
+Do not merely explain how to build it.
+Do not give me isolated code snippets.
+Inspect the existing repository first, understand its current structure, and then implement the application directly in the repository.
+
+If something is missing, create it.
+
+The goal is to create a highly polished, production-quality Developer Navigation Engine that feels fundamentally different from traditional developer roadmap websites.
+
+---
+
+# 1. PRODUCT VISION
+
+Build a web application that acts as a:
+
+> "Developer GPS"
+
+The application should help a user determine:
+
+1. Where they currently are in their developer journey.
+2. Where they want to go.
+3. What skills they already have.
+4. Which skills they are missing.
+5. Which skills are prerequisites for others.
+6. Which skill they should learn next.
+7. Which technologies they should NOT learn yet.
+8. Which alternative paths exist.
+9. How close they are to becoming job-ready for a chosen role.
+
+This is NOT simply a collection of static roadmaps.
+
+The core product is a personalized, interactive skill-navigation system.
+
+The main product principle is:
+
+> "You don't need to know the whole road. You need to know the best next turn."
+
+---
+
+# 2. CORE EXPERIENCE
+
+The user should be able to:
+
+Choose a destination
+↓
+Choose/assess current knowledge
+↓
+Generate personalized roadmap
+↓
+Explore interactive skill graph
+↓
+See "YOU ARE HERE"
+↓
+See recommended next skill
+↓
+Understand why that skill matters
+↓
+See prerequisites and dependencies
+↓
+Track progress
+↓
+See career readiness
+↓
+Explore alternative routes
+
+The application should feel like Google Maps for developer skills.
+
+---
+
+# 3. IMPORTANT DIFFERENTIATION
+
+Do NOT make the interface look like a normal roadmap website.
+
+Avoid a simple vertical list such as:
+
+Java
+↓
+Spring
+↓
+Docker
+↓
+AWS
+
+Instead, create an interactive skill graph / knowledge map.
+
+Users should be able to:
+
+* zoom
+* pan
+* search
+* filter
+* highlight paths
+* highlight prerequisites
+* highlight completed skills
+* highlight current skill
+* highlight career-critical skills
+* inspect individual nodes
+* compare routes
+* switch career destinations
+
+The visual experience should feel premium, modern, technical, and highly interactive.
+
+---
+
+# 4. TARGET USERS
+
+Primary users:
+
+* college students
+* beginner developers
+* self-taught developers
+* developers changing technologies
+* developers preparing for jobs
+* developers trying to move from junior to senior
+* developers confused about what to learn next
+
+The UI must work extremely well for beginners but should not feel childish or simplistic.
+
+---
+
+# 5. INITIAL CAREER PATHS
+
+Create the architecture so new roadmaps can easily be added through data/configuration rather than hardcoded UI logic.
+
+Initially support:
+
+1. Java Backend Developer
+2. Full Stack Developer
+3. Frontend Developer
+4. Python Backend Developer
+5. DevOps Engineer
+
+Create enough realistic roadmap data for these paths to demonstrate the complete product.
+
+The architecture must make it easy to add:
+
+* AI Engineer
+* Data Engineer
+* Data Scientist
+* Android Developer
+* Cloud Engineer
+* Cybersecurity Engineer
+* C++ Developer
+* Node.js Developer
+* etc.
+
+---
+
+# 6. ROADMAP DATA MODEL
+
+Every skill/node should support at least:
+
+* id
+* name
+* slug
+* description
+* category
+* difficulty
+* estimatedHours
+* importance
+* careerRelevance
+* prerequisites
+* dependencies
+* relatedSkills
+* recommendedOrder
+* optional/required status
+* technology tags
+* roadmap membership
+* beginner/intermediate/advanced level
+* mastery requirements
+
+Example:
+
+{
+id: "spring-dependency-injection",
+name: "Dependency Injection",
+category: "Spring",
+difficulty: "intermediate",
+estimatedHours: 4,
+importance: 9,
+prerequisites: [
+"java-oop",
+"interfaces",
+"polymorphism"
+],
+unlocks: [
+"spring-beans",
+"spring-configuration",
+"spring-boot"
+]
+}
+
+Do not hardcode these relationships inside React components.
+
+Store roadmap information in structured data.
+
+---
+
+# 7. INTERACTIVE SKILL GRAPH
+
+The main roadmap screen should contain an interactive graph.
+
+Requirements:
+
+* nodes represent skills
+* edges represent prerequisites/dependencies
+* different visual states for completed/current/not-started/optional
+* zoom in/out
+* pan
+* fit-to-screen
+* node selection
+* path highlighting
+* dependency highlighting
+* search-to-node
+* focus current skill
+* focus destination
+* show prerequisite chain
+* show what a skill unlocks
+* responsive behavior
+
+The graph must remain performant.
+
+Use an appropriate graph/visualization library if the project stack allows it.
+
+Do not build an unnecessarily complicated custom graph engine if a reliable library can provide the behavior.
+
+---
+
+# 8. NODE STATES
+
+Every roadmap node should visually communicate its state.
+
+Completed:
+
+✓ COMPLETED
+
+Current:
+
+● YOU ARE HERE
+
+In progress:
+
+◐ IN PROGRESS
+
+Not started:
+
+○ NOT STARTED
+
+Optional:
+
+◇ OPTIONAL
+
+Blocked:
+
+🔒 BLOCKED BY PREREQUISITES
+
+Do not rely only on color.
+
+Use icons, labels, borders, shapes, or other visual indicators so the interface remains accessible.
+
+---
+
+# 9. "YOU ARE HERE" SYSTEM
+
+This is one of the most important features.
+
+The system should determine the user's current position from progress data.
+
+Example:
+
+Java Basics       ✓
+OOP               ✓
+Collections       ✓
+SQL               ◐
+Spring             ○
+Docker             ○
+
+The system identifies:
+
+CURRENT POSITION → SQL
+
+The UI should prominently display:
+
+> YOU ARE HERE
+
+and visually focus that node.
+
+If multiple skills are being learned simultaneously, support multiple active nodes but still calculate a primary recommended next step.
+
+---
+
+# 10. NEXT BEST STEP ENGINE
+
+Create a recommendation engine.
+
+It should calculate the best next skill using factors such as:
+
+* prerequisites completed
+* user mastery
+* destination relevance
+* importance
+* career relevance
+* estimated learning time
+* dependencies
+* user's current skill level
+* existing knowledge
+* optional vs required
+* roadmap position
+
+The result should be displayed prominently.
+
+Example:
+
+NEXT BEST STEP
+
+SQL Joins
+
+Estimated time:
+2h 15m
+
+Why:
+
+✓ You already understand SQL basics.
+✓ Joins are required for the next database concepts.
+✓ This unlocks JPA/Hibernate-related skills.
+✓ It has high backend relevance.
+
+[ START LEARNING ]
+
+The recommendation engine should be modular so its scoring algorithm can be improved later.
+
+---
+
+# 11. "WHY LEARN THIS?"
+
+Every skill node must have a detailed information panel.
+
+When clicked, show:
+
+* what it is
+* why it matters
+* prerequisites
+* what it unlocks
+* where it is used
+* career relevance
+* difficulty
+* estimated time
+* related skills
+* recommended projects (placeholder architecture for future)
+* common mistakes
+* learning status
+
+Example:
+
+DEPENDENCY INJECTION
+
+Why?
+
+Spring Boot applications rely heavily on Dependency Injection.
+
+Prerequisites:
+✓ Interfaces
+✓ OOP
+✓ Polymorphism
+
+Unlocks:
+→ Spring Beans
+→ Spring Configuration
+→ Service Layer
+→ Repository Layer
+→ Spring Security
+
+---
+
+# 12. "DON'T LEARN THIS YET"
+
+Create a dedicated recommendation section.
+
+The application should identify technologies that are currently irrelevant because their prerequisites are incomplete or because they provide low immediate value.
+
+Example:
+
+DON'T LEARN YET
+
+Kubernetes
+Kafka
+Terraform
+Microservices
+
+Reason:
+
+You should first complete:
+
+REST APIs
+Docker
+Distributed Systems fundamentals
+
+The goal is to reduce information overload.
+
+---
+
+# 13. ALTERNATIVE ROUTES
+
+Allow users to compare different routes toward the same destination.
+
+Example:
+
+Backend Developer
+
+Route A:
+Java → Spring Boot → PostgreSQL → Docker → AWS
+
+Route B:
+TypeScript → Node.js → PostgreSQL → Docker → AWS
+
+Route C:
+Python → FastAPI → PostgreSQL → Docker → AWS
+
+Comparison should include:
+
+* estimated total hours
+* number of required skills
+* difficulty
+* user's existing compatibility
+* career relevance
+* skill overlap
+
+Highlight the recommended route.
+
+---
+
+# 14. USER SKILL PROFILE
+
+Create a "Skill DNA" view.
+
+Display skill areas such as:
+
+Backend
+Frontend
+Database
+Cloud
+DevOps
+Security
+DSA
+System Design
+Testing
+
+Each category should have a calculated mastery level.
+
+Example:
+
+Backend       █████████░ 86%
+Database      ███████░░░ 71%
+DevOps        ████░░░░░░ 38%
+Cloud         ███░░░░░░░ 29%
+DSA           ██████░░░░ 61%
+
+Do not fake precision.
+
+Make it clear that the value is a calculated estimate.
+
+---
+
+# 15. MASTERY MODEL
+
+Do not treat "clicked complete" as mastery.
+
+Support multiple evidence sources:
+
+* tutorial completion
+* quiz score
+* practice score
+* project completion
+* assessment score
+* interview question performance
+
+Example:
+
+HashMap
+
+Learning:
+92%
+
+Practice:
+71%
+
+Assessment:
+78%
+
+Project:
+Completed
+
+Calculated mastery:
+78%
+
+Create the architecture so more evidence types can be added later.
+
+---
+
+# 16. CAREER READINESS
+
+For each destination, calculate a readiness score.
+
+Example:
+
+JAVA BACKEND ENGINEER
+
+Technical Skills       87%
+Projects               72%
+DSA                    64%
+System Design          43%
+Git/GitHub              91%
+Cloud                   38%
+
+Overall Readiness:
+74%
+
+Then show the largest gaps.
+
+TOP GAPS:
+
+1. System Design
+2. Docker
+3. AWS
+4. Testing
+5. Redis
+
+Do not imply that this is an actual hiring guarantee.
+
+Label it as a learning/readiness estimate.
+
+---
+
+# 17. ROADMAP LEVELS
+
+Every roadmap should visually communicate:
+
+BEGINNER
+↓
+INTERMEDIATE
+↓
+ADVANCED
+↓
+JOB READY
+
+Users should be able to understand their progression at a glance.
+
+---
+
+# 18. TIME-BASED ROADMAP
+
+Allow users to specify learning availability:
+
+30 minutes/day
+1 hour/day
+2 hours/day
+4+ hours/day
+
+Use this to estimate roadmap completion.
+
+Example:
+
+At 1 hour/day:
+
+Estimated completion:
+8 months
+
+At 2 hours/day:
+
+Estimated completion:
+4 months
+
+This should be calculated dynamically from roadmap estimated hours.
+
+---
+
+# 19. PERSONALIZED ROADMAP GENERATION
+
+Ask the user:
+
+1. What role do you want?
+2. What technologies do you already know?
+3. What is your experience level?
+4. How much time can you study?
+5. What is your goal?
+
+Goals:
+
+* first job
+* internship
+* career switch
+* improve current skills
+* become senior
+* build projects
+* interview preparation
+
+Generate the roadmap state based on this information.
+
+---
+
+# 20. TIME MACHINE
+
+Create a future projection.
+
+Example:
+
+TODAY
+
+You are here:
+Spring
+
+30 DAYS
+
+Spring Boot
+REST API
+SQL
+
+90 DAYS
+
+Docker
+Testing
+AWS
+
+180 DAYS
+
+System Design
+Distributed Systems
+Production Architecture
+
+The projection should be based on available study time and estimated learning hours.
+
+Clearly label it as an estimate.
+
+---
+
+# 21. "WHAT CHANGED?" SYSTEM
+
+Design the architecture for future technology updates.
+
+A user returning after several months should eventually be able to see:
+
+WHAT CHANGED SINCE YOUR LAST VISIT?
+
+* New technology
+* Changed recommendation
+* Deprecated technology
+* New prerequisite
+* Updated roadmap path
+
+For V1, implement the UI/data model with mock update data if necessary.
+
+---
+
+# 22. EXPLORE MODE
+
+Create an Explore page where users can discover:
+
+Career Roadmaps
+Technology Roadmaps
+Skill Categories
+
+Use attractive cards and filtering.
+
+Filters:
+
+* beginner
+* intermediate
+* advanced
+* frontend
+* backend
+* devops
+* cloud
+* AI
+* mobile
+* data
+
+---
+
+# 23. SEARCH
+
+Implement global search.
+
+Search should find:
+
+* careers
+* technologies
+* skills
+* roadmap nodes
+
+Examples:
+
+"HashMap"
+"Spring Boot"
+"Backend Developer"
+"Docker"
+
+Selecting a result should navigate directly to the relevant node/page.
+
+---
+
+# 24. COMPARE MODE
+
+Allow:
+
+Compare two careers
+Compare two technologies
+Compare two routes
+
+Example:
+
+Java Backend vs Node Backend
+
+Show:
+
+* required skills
+* overlap
+* differences
+* estimated learning time
+* user compatibility
+* career focus
+
+Make this highly visual.
+
+---
+
+# 25. DASHBOARD
+
+After a user creates a profile, provide:
+
+* current roadmap
+* progress
+* current position
+* next best step
+* skill DNA
+* career readiness
+* recent activity
+* estimated completion
+* biggest skill gaps
+
+The dashboard should immediately answer:
+
+> "What should I do next?"
+
+---
+
+# 26. UI / UX DIRECTION
+
+The UI should feel:
+
+* premium
+* futuristic
+* technical
+* minimal
+* professional
+* fast
+* information-dense without being cluttered
+
+Avoid:
+
+* generic Bootstrap appearance
+* excessive gradients
+* childish illustrations
+* huge unnecessary hero sections
+* excessive rounded cards
+* template-like SaaS UI
+* visually noisy animations
+
+Use:
+
+* strong typography
+* excellent spacing
+* subtle borders
+* intelligent hierarchy
+* smooth transitions
+* technical visual language
+* interactive graph elements
+* responsive layouts
+
+Support:
+
+Dark mode
+Light mode
+
+Dark mode should be the primary visual experience.
+
+---
+
+# 27. RESPONSIVE DESIGN
+
+Desktop:
+
+Large interactive roadmap canvas.
+
+Tablet:
+
+Condensed graph with optimized controls.
+
+Mobile:
+
+Do NOT attempt to squeeze the entire desktop graph onto the screen.
+
+Instead:
+
+* vertical/condensed roadmap
+* expandable nodes
+* bottom sheets
+* swipeable detail panels
+* zoom controls
+* focused-node navigation
+
+The application must be genuinely usable on mobile.
+
+---
+
+# 28. ACCESSIBILITY
+
+Implement:
+
+* keyboard navigation where practical
+* visible focus states
+* semantic HTML
+* ARIA labels where necessary
+* sufficient contrast
+* non-color indicators for node states
+* reduced-motion support
+
+Do not sacrifice usability for visual effects.
+
+---
+
+# 29. PERFORMANCE
+
+The roadmap may eventually contain thousands of nodes.
+
+Design accordingly.
+
+Requirements:
+
+* lazy-load large datasets where appropriate
+* avoid unnecessary React re-renders
+* memoize expensive graph calculations
+* virtualize lists where appropriate
+* optimize assets
+* avoid huge client-side bundles
+* debounce search
+* keep interactions smooth
+
+---
+
+# 30. TECHNOLOGY STACK
+
+Before implementing, inspect the existing repository.
+
+If a stack already exists, preserve it unless there is a compelling reason to change it.
+
+If starting from scratch, prefer:
+
+Frontend:
+
+* React
+* TypeScript
+* Vite or Next.js
+* Tailwind CSS
+
+State:
+
+* Zustand or an appropriate lightweight state solution
+
+Graph:
+
+* React Flow or another suitable graph library
+
+Icons:
+
+* Lucide React
+
+Backend for V1:
+
+* Prefer a simple local/static data architecture unless backend functionality is genuinely necessary.
+
+Prepare the architecture for future:
+
+Spring Boot
+PostgreSQL
+authentication
+cloud deployment
+
+Do not build unnecessary backend infrastructure for V1.
+
+---
+
+# 31. DATA ARCHITECTURE
+
+Separate:
+
+1. roadmap definitions
+2. skill definitions
+3. relationships
+4. career definitions
+5. user state
+6. recommendation logic
+7. UI components
+
+Do not mix roadmap data with presentation components.
+
+Example:
+
+data/
+careers/
+roadmaps/
+skills/
+relationships/
+
+services/
+recommendation/
+mastery/
+readiness/
+
+components/
+roadmap/
+dashboard/
+skill/
+navigation/
+
+---
+
+# 32. V1 DATA
+
+Populate the application with realistic data.
+
+Do not leave the product as an empty shell.
+
+At minimum create:
+
+5 career paths
+50+ meaningful skills
+real prerequisites
+real dependencies
+different difficulty levels
+estimated hours
+career relevance
+alternative routes
+
+Make Java Backend Developer the most detailed example.
+
+---
+
+# 33. LANDING PAGE
+
+Create a strong landing page.
+
+Headline:
+
+> FIND YOUR NEXT MOVE.
+
+Subheadline:
+
+> A developer navigation system that shows you where you are, where you're going, and what to learn next.
+
+Primary CTA:
+
+BUILD MY ROADMAP
+
+Secondary CTA:
+
+EXPLORE ROADMAPS
+
+Show an interactive-looking preview of the skill graph.
+
+Do not claim unsupported AI capabilities.
+
+---
+
+# 34. MICROINTERACTIONS
+
+Use animations carefully.
+
+Examples:
+
+* node focus animation
+* progress transitions
+* smooth graph navigation
+* panel transitions
+* hover states
+* completion animation
+* route highlighting
+
+Animations should communicate state, not exist merely for decoration.
+
+Respect prefers-reduced-motion.
+
+---
+
+# 35. DESIGN SYSTEM
+
+Create reusable:
+
+Buttons
+Cards
+Badges
+Tabs
+Progress bars
+Node components
+Panels
+Modal/sheet components
+Search components
+Filter components
+Navigation
+Empty states
+Loading states
+Tooltips
+
+Do not duplicate styling unnecessarily.
+
+---
+
+# 36. ERROR / EMPTY STATES
+
+Implement polished states for:
+
+* no roadmap selected
+* no search results
+* no progress
+* incomplete profile
+* missing prerequisites
+* unavailable roadmap
+* invalid route
+
+Do not show blank screens.
+
+---
+
+# 37. PRODUCT COPY
+
+Use concise developer-oriented language.
+
+Examples:
+
+"YOU ARE HERE"
+"NEXT BEST STEP"
+"WHY THIS MATTERS"
+"UNLOCKS"
+"PREREQUISITES"
+"SKILL GAP"
+"CAREER READINESS"
+"DON'T LEARN YET"
+"ALTERNATIVE ROUTES"
+
+Avoid generic marketing language.
+
+---
+
+# 38. IMPORTANT ENGINEERING RULE
+
+Do not create fake functionality.
+
+If a feature requires a backend, database, authentication, AI API, or external service that does not exist yet:
+
+1. Create a clean abstraction/interface.
+2. Implement a local/mock version for V1.
+3. Clearly separate it so the real implementation can be added later.
+
+Do not pretend a mock calculation is an AI system.
+
+---
+
+# 39. DEVELOPMENT PROCESS
+
+Follow this order.
+
+PHASE 1:
+Inspect repository.
+
+PHASE 2:
+Determine current stack and preserve useful existing work.
+
+PHASE 3:
+Create architecture.
+
+PHASE 4:
+Build design system.
+
+PHASE 5:
+Build landing page.
+
+PHASE 6:
+Build career selection.
+
+PHASE 7:
+Build interactive roadmap graph.
+
+PHASE 8:
+Build skill detail panel.
+
+PHASE 9:
+Build progress system.
+
+PHASE 10:
+Build recommendation engine.
+
+PHASE 11:
+Build alternative route comparison.
+
+PHASE 12:
+Build Skill DNA.
+
+PHASE 13:
+Build career readiness.
+
+PHASE 14:
+Build dashboard.
+
+PHASE 15:
+Build search/filtering.
+
+PHASE 16:
+Responsive/mobile optimization.
+
+PHASE 17:
+Accessibility.
+
+PHASE 18:
+Performance optimization.
+
+PHASE 19:
+Testing.
+
+PHASE 20:
+Final polish.
+
+After each phase, verify that the application still runs.
+
+---
+
+# 40. TESTING
+
+Create tests for:
+
+* roadmap loading
+* dependency relationships
+* progress calculation
+* mastery calculation
+* next-best-step calculation
+* prerequisite detection
+* readiness calculation
+* route comparison
+* search
+* filters
+
+Also manually verify:
+
+* desktop
+* tablet
+* mobile
+* dark mode
+* light mode
+* keyboard navigation
+
+---
+
+# 41. CODE QUALITY
+
+Use:
+
+* TypeScript types
+* small reusable components
+* clear naming
+* modular architecture
+* no unnecessary duplication
+* no giant components
+* no hardcoded roadmap relationships in UI
+* no magic numbers where configuration is appropriate
+* meaningful comments only where necessary
+
+Do not over-engineer.
+
+But ensure the architecture can scale.
+
+---
+
+# 42. SECURITY
+
+Even though V1 may be primarily frontend:
+
+* never expose secrets
+* never place API keys in source code
+* sanitize user-generated values
+* avoid unsafe HTML rendering
+* validate data
+* avoid unnecessary dependencies
+
+---
+
+# 43. SEO
+
+Implement:
+
+* meaningful page titles
+* meta descriptions
+* semantic headings
+* clean URLs
+* sitemap-ready architecture
+* robots.txt
+* Open Graph metadata
+* structured content where appropriate
+
+Each roadmap should eventually have a shareable URL.
+
+Example:
+
+/roadmaps/java-backend-developer
+
+/roadmaps/frontend-developer
+
+/skills/java-oop
+
+/skills/spring-boot
+
+---
+
+# 44. SHAREABLE ROADMAP
+
+A user should eventually be able to share:
+
+"My Java Backend Roadmap"
+
+with a URL.
+
+Prepare the architecture for:
+
+/u/{username}/roadmaps/{roadmap}
+
+For V1, this can be a local/demo implementation if authentication is not present.
+
+---
+
+# 45. NO LOGIN REQUIRED FOR EXPLORATION
+
+Users should be able to:
+
+* browse roadmaps
+* inspect skills
+* explore dependencies
+* compare paths
+
+without creating an account.
+
+Login should only be necessary for persistent personal progress.
+
+---
+
+# 46. FINAL PRODUCT FEEL
+
+When someone opens this website, their reaction should be:
+
+"This isn't another roadmap list."
+
+It should feel like:
+
+"Someone built Google Maps for becoming a developer."
+
+The application should communicate:
+
+WHERE AM I?
+↓
+WHERE AM I GOING?
+↓
+WHAT IS BETWEEN HERE AND THERE?
+↓
+WHAT SHOULD I DO NEXT?
+↓
+WHY?
+↓
+HOW CLOSE AM I?
+
+---
+
+# 47. DO NOT COPY OTHER WEBSITES
+
+Do not copy:
+
+* roadmap.sh layouts
+* W3Schools layouts
+* icons
+* text
+* branding
+* colors
+* proprietary content
+* screenshots
+* copyrighted tutorial material
+
+The product should have its own visual identity and original roadmap data.
+
+---
+
+# 48. COMPLETION CRITERIA
+
+Do not consider the project complete merely because it compiles.
+
+The final application must have:
+
+✓ polished landing page
+✓ career selection
+✓ interactive roadmap
+✓ skill graph
+✓ dynamic current position
+✓ progress system
+✓ next-best-step engine
+✓ skill detail panels
+✓ prerequisite visualization
+✓ alternate route comparison
+✓ Skill DNA
+✓ career readiness
+✓ time-based projections
+✓ "don't learn yet"
+✓ search
+✓ filters
+✓ responsive design
+✓ dark/light mode
+✓ accessibility
+✓ realistic roadmap data
+✓ clean architecture
+✓ tests
+✓ production-quality UI
+
+---
+
+# 49. MOST IMPORTANT INSTRUCTION
+
+Think like a product team, not a code generator.
+
+Before implementing a feature, ask:
+
+"Does this help the user navigate their developer journey?"
+
+If yes, build it well.
+
+If not, don't add unnecessary complexity.
+
+Prioritize:
+
+1. exceptional UX
+2. clear information architecture
+3. intelligent roadmap relationships
+4. useful recommendations
+5. performance
+6. maintainability
+7. visual polish
+
+Do not stop after creating a basic prototype.
+
+Build the complete V1 described above.
+
+START BY INSPECTING THE REPOSITORY AND THEN IMPLEMENT THE APPLICATION.
